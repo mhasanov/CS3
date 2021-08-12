@@ -106,7 +106,7 @@ public class BufferNode {
 		 * Constructor for the Buffer Object.
 		 */
 		public Buffer() {
-			myBytes = new byte[BufferPool.BUFFER_SIZE];
+			myBytes = new byte[BufferPool.bSize];
 		}
 
 		/**
