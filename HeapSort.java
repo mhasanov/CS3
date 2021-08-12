@@ -47,10 +47,10 @@ public class HeapSort {
 		BufferedWriter writer = new BufferedWriter(inputStream);
 		writer.append("STATS\n");
 		writer.append("File Name: " + fileName + "\n");
-		writer.append("Cache Hits: " + bufferPool.getCacheHits() + "\n");
-		writer.append("Cache Misses: " + bufferPool.getCacheMisses() + "\n");
-		writer.append("Disk Reads: " + bufferPool.getDiskReads() + "\n");
-		writer.append("Disk Writes: " + bufferPool.getDiskWrites() + "\n");
+		writer.append("Cache Hits: " + bufferPool.getHits() + "\n");
+		writer.append("Cache Misses: " + bufferPool.getMisses() + "\n");
+		writer.append("Disk Reads: " + bufferPool.getReads() + "\n");
+		writer.append("Disk Writes: " + bufferPool.getWrites() + "\n");
 		writer.append("Time to sort: " + finalTime + "\n");
 		writer.close();
 	}
@@ -68,7 +68,7 @@ public class HeapSort {
 		File resultFile = new File(outputFile);
 		File fileHeap = new File(fileName);
 		BufferPool bufferPool = new BufferPool(Integer.parseInt(noOfBuffers), fileHeap);
-		MaxHeap sorterHeap = new MaxHeap(bufferPool, fileHeap.length() / 4);
+		MaximumHeap sorterHeap = new MaximumHeap(bufferPool, fileHeap.length() / 4);
 		long initialTime = System.currentTimeMillis();
 		sorterHeap.heapsort();
 		bufferPool.flush();
