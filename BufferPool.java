@@ -26,6 +26,33 @@ public class BufferPool
     private int reads = 0;
     private int writes = 0;
 
+
+    /**
+     * 
+     */
+    public int getMisses() {
+        return misses;
+    }
+    /**
+     * 
+     */
+    public int getHits() {
+        return hits;
+    }
+    /**
+     * 
+     */
+    public int getReads() {
+        return reads;
+    }
+    /**
+     * 
+     */
+    public int getWrites() {
+        return writes;
+    }
+    
+    
     /**
      * 
      */
@@ -81,7 +108,7 @@ public class BufferPool
      * requestKey = getKey
      */
     public short getKey(long recordNumb) {
-        BufferNode node = bufferContains(recordNumb);
+        BufferNode node = has(recordNumb);
         if(node == null) {
             node = bufferRead(recordNumb);
         }
@@ -129,7 +156,7 @@ public class BufferPool
         if (node == null) {
             node = bufferRead(recordNumber);
         }
-        node.getBuffer().setRecord((int)(recordNumber * 4 - node.getBlockID()), data);
+        node.getBuffer().set((int)(recordNumber * 4 - node.getBlockID()), data);
         node.setChanged(true);
     }
     
@@ -151,11 +178,11 @@ public class BufferPool
      */
     public byte[] get(long recordNumber)
     {
-        BufferNode node = bufferContains(recordNumber);
+        BufferNode node = has(recordNumber);
         if (node == null) {
             node = bufferRead(recordNumber);
         }
-        return node.getBuffer().getRecord((int)(recordNumber * 4 - node.getBlockID()));
+        return node.getBuffer().get((int)(recordNumber * 4 - node.getBlockID()));
     }
     
     
@@ -211,29 +238,5 @@ public class BufferPool
     
     
     
-    /**
-     * 
-     */
-    public int getMisses() {
-        return misses;
-    }
-    /**
-     * 
-     */
-    public int getHits() {
-        return hits;
-    }
-    /**
-     * 
-     */
-    public int getReads() {
-        return reads;
-    }
-    /**
-     * 
-     */
-    public int getWrites() {
-        return writes;
-    }
 
 }
